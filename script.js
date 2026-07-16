@@ -256,7 +256,7 @@ function setupAudio() {
         audio.preload = 'auto';
         audio.innerHTML = `
             <!-- FIXED: No spaces in filename, using proper encoding -->
-            <source src="https://raw.githubusercontent.com/Datashadow2/why/main/audio.Seafret%20-%20Oceans.mp3" type="audio/mpeg">
+            <source src="https://raw.githubusercontent.com/Datashadow2/why/main/Seafret%20-%20Oceans.mp3" type="audio/mpeg">
             <!-- Backup: If the above doesn't work, try without special chars -->
             <!-- <source src="https://raw.githubusercontent.com/Datashadow2/why/main/audio.mp3" type="audio/mpeg"> -->
         `;
