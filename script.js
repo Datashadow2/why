@@ -5,7 +5,7 @@
     
     // !!! UPDATE THIS PATH TO MATCH YOUR AUDIO FILE LOCATION !!!
     // If audio is in the same folder as index.html:
-    audio.src = 'formidable.mp3';
+    audio.src = 'Olivia Rodrigo - traitor (Official Video).mp3';
     // If audio is in an "audio" folder:
     // audio.src = 'audio/formidable.mp3';
     
