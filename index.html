@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tell me the truth</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,700;14..32,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="scroll-container" id="scrollContainer">
+
+        <!-- ================= PAGE 1: HELLO ================= -->
+        <section class="page" id="page1">
+            <div class="big-text">hello.</div>
+            <div class="sub-text">
+                Hope you had a beautiful day....
+                <br /><br />
+                Press play.
+            </div>
+            <button class="play-btn" id="playBtn">▶ play</button>
+            <div class="small-note">scroll down when you're ready</div>
+        </section>
+
+        <!-- ================= PAGE 2: PINK / GOOD TIMES ================= -->
+        <section class="page" id="page2">
+            <!-- MASTERFUL HEARTS -->
+            <div class="hearts-page" id="heartsPage"></div>
+
+            <div class="content">
+                <h2>Mitchelle, Do you remember?</h2>
+                <div class="story-text">
+                    <p>
+                        When we made jokes and laughed like maniacs on the road, all the promises I made to you, all the dancing, these moments we all real to me
+                      If they meant nothing to you, I don't blame you, but goddamn it, i tried, I tried being a good friend to you and see where it got me. I tried 
+                      All these times, I kept trying to dress nicely for you, but we both know i have poor fashion sense and didn't quite work out, I tried but it
+                      felt like i was trying to hard, Can you imagne i even tried listening to vybz kartel, i tried listening to genge tone or is it urban tone, but i tried
+                      I know i am short and not that good looking, I know i am controlling, i am commanding, i have a bad attitude I know i am a strict person
+                      but....we can't all be perfect
+                        <span class="highlight">Was it all for nothing</span>
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        I remember the first time I realized, there must be something. You know i am not the kind of guy who finds it easy to express his emotions
+                        but.......nevermind<span class="highlight">"I still believe that you are lying, I wanna believe you but then i don't."</span>
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        Atleast you would have told me, and evade all this emotional turmoil.
+                        I trusted you.
+                    </p>
+                    <span class="but-break">... but.</span>
+                </div>
+            </div>
+            <div class="page-indicator">page 2 · the good times</div>
+        </section>
+
+        <!-- ================= PAGE 3: HELL / BROKEN TRUST ================= -->
+        <section class="page" id="page3">
+            <!-- MASTERFUL FLAMES -->
+            <div class="hell-particles-page" id="hellParticlesPage">
+                <div class="flame-base"></div>
+            </div>
+
+            <div class="content">
+                <h2>you broke me.</h2>
+                <div class="story-text">
+                    <p>
+                        The trust I gave you — you <span class="broken">shattered</span> it like glass.
+                        All the words you said to me....were all of them  <span class="broken">a lie</span>.
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        It doesn't make sense to say you don't want to date and go ahead and say <span class="burn">love another guy</span>
+                        The pain is unbearable — like a thousand knives twisting in my chest.Congratulations, first irl who ever made me feel this kind of pain.
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        Is this who you really are?
+                        And now, all that remains is the <span class="broken">truth</span> —
+                        the truth that you <span class="burn">betrayed</span> me.
+                    </p>
+                    <p style="margin-top: 1rem; font-weight: 700;" class="final-why">
+                        why did you do this?
+                    </p>
+                </div>
+
+                <!-- CONFESSION BOX -->
+                <div class="confession-box">
+                    <textarea id="confessionInput" placeholder="Tell the truth... confess your feelings... why did you break my trust?"></textarea>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem;">
+                        <button class="send-btn" id="sendBtn">✉ send the truth</button>
+                        <div class="status-msg" id="statusMsg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-indicator">page 3 · the broken truth</div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
