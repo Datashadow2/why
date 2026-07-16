@@ -256,7 +256,7 @@ function setupAudio() {
         audio.id = 'bgMusic';
         audio.loop = true;
         audio.innerHTML = `
-            <source src="https://raw.githubusercontent.com/Datashadow2/why/main/audio.seafret-oceans.mp3" type="audio/mpeg">
+            <source src="https://raw.githubusercontent.com/Datashadow2/why/main/audio.Seafret - Oceans.mp3" type="audio/mpeg">
         `;
         document.body.appendChild(audio);
     }
