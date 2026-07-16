@@ -1,0 +1,666 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0508;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* ---- main scroll container ---- */
+.scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+/* ---- each page / section ---- */
+.page {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* ---- PAGE 1: HELLO / PRESS PLAY ---- */
+#page1 {
+    background: #0a0508;
+    color: #f0e4e8;
+    z-index: 2;
+}
+#page1 .big-text {
+    font-size: 4.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    text-align: center;
+    background: linear-gradient(135deg, #f0e4e8, #b34a6e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+    animation: pulseText 2s ease-in-out infinite;
+}
+@keyframes pulseText {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+#page1 .sub-text {
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: #b28a99;
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.6;
+}
+#page1 .play-btn {
+    margin-top: 2.5rem;
+    padding: 1rem 3.5rem;
+    border-radius: 60px;
+    border: 2px solid #b34a6e;
+    background: rgba(180, 50, 80, 0.15);
+    color: #f0e4e8;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(4px);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+}
+#page1 .play-btn:hover {
+    background: #b34a6e;
+    box-shadow: 0 0 40px #b34a6e66;
+    transform: scale(1.05);
+}
+#page1 .play-btn:active {
+    transform: scale(0.95);
+}
+#page1 .small-note {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.8rem;
+    color: #5a3a44;
+    letter-spacing: 2px;
+    animation: blink 2s infinite;
+}
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+/* ---- PAGE 2: PINK HEAVEN (good times) ---- */
+#page2 {
+    background: #fce4ec;
+    background-image: radial-gradient(circle at 30% 20%, #ffd6e0 0%, #f8b0c0 100%);
+    border-top: 2px solid #ff8a9e;
+    border-bottom: 2px solid #ff8a9e;
+    color: #4d1e30;
+}
+#page2 .content {
+    max-width: 750px;
+    text-align: center;
+    z-index: 3;
+    position: relative;
+}
+#page2 h2 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1.5rem;
+    color: #6f2a44;
+    text-shadow: 0 0 30px #ff8a9e66;
+    animation: floatText 4s ease-in-out infinite;
+}
+@keyframes floatText {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+#page2 .story-text {
+    font-size: 1.2rem;
+    line-height: 2;
+    font-weight: 300;
+    color: #5a2a3a;
+    font-family: 'Playfair Display', serif;
+}
+#page2 .story-text .highlight {
+    color: #b34a6e;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+#page2 .story-text .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #b34a6e;
+    animation: underlinePulse 1.5s ease-in-out infinite;
+}
+@keyframes underlinePulse {
+    0%,
+    100% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scaleX(1.3);
+        opacity: 0.5;
+    }
+}
+#page2 .story-text .but-break {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #b34a6e;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 8px;
+    text-shadow: 0 0 40px #b34a6e66;
+    animation: butPulse 1.2s ease-in-out infinite;
+}
+@keyframes butPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+#page2 .page-indicator {
+    position: absolute;
+    bottom: 2rem;
+    color: #6f2a44;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    letter-spacing: 2px;
+}
+
+/* ---- MASTERFUL HEART ANIMATIONS (Page 2) ---- */
+.hearts-page {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+.heart-float {
+    position: absolute;
+    font-size: 1.8rem;
+    opacity: 0;
+    user-select: none;
+    animation: heartMaster 12s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3));
+}
+.heart-float:nth-child(odd) {
+    animation-duration: 14s;
+    animation-delay: -2s;
+}
+.heart-float:nth-child(3n) {
+    animation-duration: 18s;
+    animation-delay: -5s;
+    font-size: 2.8rem;
+}
+.heart-float:nth-child(5n+2) {
+    animation-duration: 16s;
+    animation-delay: -8s;
+}
+@keyframes heartMaster {
+    0% {
+        transform: translateY(100vh) scale(0.3) rotate(0deg) translateX(0px);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.9;
+        transform: translateY(75vh) scale(0.8) rotate(45deg) translateX(20px);
+    }
+    50% {
+        transform: translateY(40vh) scale(1.2) rotate(180deg) translateX(-30px);
+        opacity: 1;
+    }
+    80% {
+        transform: translateY(10vh) scale(0.9) rotate(270deg) translateX(15px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-20vh) scale(0.4) rotate(360deg) translateX(-20px);
+        opacity: 0;
+    }
+}
+
+/* ---- PAGE 3: HELL / BROKEN TRUST (DARKER FONTS) ---- */
+#page3 {
+    background: #0a0508;
+    color: #8a7a82;
+    border-top: 2px solid #4d1e30;
+}
+#page3 .content {
+    max-width: 800px;
+    text-align: center;
+    z-index: 3;
+    position: relative;
+    padding: 0 1rem;
+}
+#page3 h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #8a4a5a, #3d1a28);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 60px rgba(180, 50, 80, 0.2);
+    margin-bottom: 1.5rem;
+    animation: hellTitle 2s ease-in-out infinite alternate;
+}
+@keyframes hellTitle {
+    0% {
+        transform: scale(1) rotate(-1deg);
+        text-shadow: 0 0 40px rgba(180, 50, 80, 0.15);
+    }
+    100% {
+        transform: scale(1.03) rotate(1deg);
+        text-shadow: 0 0 80px rgba(180, 50, 80, 0.3);
+    }
+}
+#page3 .story-text {
+    font-size: 1.15rem;
+    line-height: 2;
+    font-weight: 300;
+    color: #7a6a72;
+    font-family: 'Playfair Display', serif;
+}
+#page3 .story-text .broken {
+    color: #9a5a6a;
+    font-weight: 700;
+    text-shadow: 0 0 20px rgba(180, 50, 80, 0.2);
+    position: relative;
+    display: inline-block;
+}
+#page3 .story-text .broken::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5%;
+    width: 110%;
+    height: 2px;
+    background: #7a4a5a;
+    transform: rotate(-5deg);
+    animation: slashPulse 1.5s ease-in-out infinite;
+}
+@keyframes slashPulse {
+    0%,
+    100% {
+        opacity: 0.2;
+        width: 110%;
+    }
+    50% {
+        opacity: 0.6;
+        width: 120%;
+    }
+}
+#page3 .story-text .burn {
+    color: #8a4a5a;
+    font-weight: 700;
+    animation: burnGlowDark 1s ease-in-out infinite alternate;
+}
+@keyframes burnGlowDark {
+    0% {
+        text-shadow: 0 0 15px rgba(180, 50, 80, 0.2);
+    }
+    100% {
+        text-shadow: 0 0 30px rgba(180, 50, 80, 0.4), 0 0 60px rgba(100, 30, 50, 0.2);
+    }
+}
+#page3 .story-text .final-why {
+    font-weight: 700;
+    color: #8a5a6a;
+    animation: whyGlow 1.5s ease-in-out infinite alternate;
+}
+@keyframes whyGlow {
+    0% {
+        text-shadow: 0 0 20px rgba(180, 50, 80, 0.1);
+        opacity: 0.7;
+    }
+    100% {
+        text-shadow: 0 0 40px rgba(180, 50, 80, 0.3);
+        opacity: 1;
+    }
+}
+#page3 .page-indicator {
+    position: absolute;
+    bottom: 2rem;
+    color: #4a3a42;
+    font-size: 0.9rem;
+    opacity: 0.4;
+    letter-spacing: 2px;
+}
+
+/* ---- MASTERFUL FLAME ANIMATIONS (Page 3) ---- */
+.hell-particles-page {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(80, 20, 30, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(80, 20, 30, 0.08) 0%, transparent 50%);
+}
+
+/* Base flame layer - more subtle */
+.flame-base {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 90%, rgba(120, 30, 30, 0.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 80%, rgba(100, 20, 20, 0.08) 0%, transparent 30%),
+        radial-gradient(ellipse at 50% 95%, rgba(140, 30, 30, 0.15) 0%, transparent 50%);
+    animation: flameBase 3s ease-in-out infinite alternate;
+}
+@keyframes flameBase {
+    0% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* Embers with darker glow */
+.ember-page {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px) drop-shadow(0 0 10px currentColor);
+    animation: emberMaster var(--duration) infinite alternate cubic-bezier(0.2, 0.8, 0.4, 1);
+    will-change: transform, opacity;
+}
+.ember-page:nth-child(odd) {
+    animation-delay: calc(var(--delay) * -1);
+}
+.ember-page::before {
+    content: '';
+    position: absolute;
+    inset: -200%;
+    border-radius: 50%;
+    background: radial-gradient(circle, currentColor 0%, transparent 70%);
+    opacity: 0.15;
+    animation: emberGlow 2s ease-in-out infinite alternate;
+}
+@keyframes emberMaster {
+    0% {
+        transform: translateY(0px) translateX(0px) scale(0.5) rotate(0deg);
+        opacity: 0.1;
+    }
+    30% {
+        opacity: 0.6;
+        transform: translateY(-60px) translateX(20px) scale(1.8) rotate(120deg);
+    }
+    60% {
+        transform: translateY(-140px) translateX(-30px) scale(1.2) rotate(240deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-250px) translateX(15px) scale(2.5) rotate(360deg);
+        opacity: 0;
+    }
+}
+@keyframes emberGlow {
+    0% {
+        opacity: 0.1;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 0.4;
+        transform: scale(1.5);
+    }
+}
+
+/* Large flame shapes with darker, more menacing presence */
+.flame-page {
+    position: absolute;
+    pointer-events: none;
+    font-size: 5rem;
+    opacity: 0;
+    filter: blur(2px) drop-shadow(0 0 20px currentColor);
+    animation: flameMaster var(--flame-duration, 2s) infinite alternate ease-in-out;
+    will-change: transform, opacity;
+}
+.flame-page::before {
+    content: '';
+    position: absolute;
+    inset: -100%;
+    background: radial-gradient(ellipse, currentColor 0%, transparent 70%);
+    opacity: 0.1;
+    filter: blur(20px);
+    animation: flameAura 1.5s ease-in-out infinite alternate;
+}
+@keyframes flameMaster {
+    0% {
+        transform: translateY(0px) scale(0.7) rotate(-10deg) skewX(5deg);
+        opacity: 0.2;
+    }
+    30% {
+        transform: translateY(-30px) scale(1.3) rotate(5deg) skewX(-3deg);
+        opacity: 0.5;
+    }
+    60% {
+        transform: translateY(-60px) scale(1.1) rotate(-8deg) skewX(8deg);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-100px) scale(1.6) rotate(12deg) skewX(-5deg);
+        opacity: 0.6;
+    }
+}
+@keyframes flameAura {
+    0% {
+        opacity: 0.05;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 0.2;
+        transform: scale(1.8);
+    }
+}
+
+/* ---- CONFESSION BOX (on page 3) - darker ---- */
+.confession-box {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 600px;
+    background: rgba(10, 4, 8, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 2rem;
+    padding: 1.5rem;
+    border: 1px solid #3d1a28;
+    box-shadow: 0 0 40px rgba(20, 6, 12, 0.5), inset 0 0 60px rgba(80, 20, 30, 0.05);
+    z-index: 5;
+    position: relative;
+    animation: boxPulse 3s ease-in-out infinite;
+}
+@keyframes boxPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 40px rgba(20, 6, 12, 0.5), inset 0 0 60px rgba(80, 20, 30, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 60px rgba(40, 15, 25, 0.6), inset 0 0 80px rgba(80, 20, 30, 0.08);
+    }
+}
+.confession-box textarea {
+    width: 100%;
+    min-height: 100px;
+    background: rgba(5, 2, 4, 0.7);
+    border: 1px solid #3d1a28;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    color: #8a7a82;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: all 0.3s;
+}
+.confession-box textarea:focus {
+    outline: none;
+    border-color: #6a3a4a;
+    box-shadow: 0 0 30px rgba(100, 30, 50, 0.2), inset 0 0 20px rgba(100, 30, 50, 0.05);
+    transform: scale(1.01);
+}
+.confession-box textarea::placeholder {
+    color: #4a3a42;
+    font-style: italic;
+    animation: placeholderFade 2s ease-in-out infinite;
+}
+@keyframes placeholderFade {
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+.confession-box .send-btn {
+    margin-top: 1rem;
+    padding: 0.8rem 2.5rem;
+    border-radius: 60px;
+    border: 2px solid #4d1e30;
+    background: rgba(40, 12, 22, 0.3);
+    color: #8a7a82;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+.confession-box .send-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(100, 30, 50, 0.1), transparent);
+    transform: translateX(-100%);
+    animation: btnShine 3s infinite;
+}
+@keyframes btnShine {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+.confession-box .send-btn:hover {
+    background: #3d1a28;
+    border-color: #6a3a4a;
+    color: #a08a92;
+    box-shadow: 0 0 40px rgba(60, 20, 30, 0.4);
+    transform: scale(1.03);
+}
+.confession-box .send-btn:active {
+    transform: scale(0.94);
+}
+.confession-box .status-msg {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: #6a5a62;
+    min-height: 1.5rem;
+    animation: fadeInOut 0.5s ease;
+}
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+    .page {
+        padding: 1.5rem 1.2rem;
+    }
+    #page1 .big-text {
+        font-size: 3rem;
+    }
+    #page2 h2 {
+        font-size: 2.4rem;
+    }
+    #page2 .story-text {
+        font-size: 1rem;
+    }
+    #page3 h2 {
+        font-size: 2.6rem;
+    }
+    #page3 .story-text {
+        font-size: 1rem;
+    }
+    .confession-box {
+        padding: 1rem;
+    }
+    .flame-page {
+        font-size: 3rem;
+    }
+}
+@media (max-width: 480px) {
+    #page1 .big-text {
+        font-size: 2.2rem;
+    }
+    #page1 .sub-text {
+        font-size: 1rem;
+    }
+    #page2 h2 {
+        font-size: 1.8rem;
+    }
+    #page3 h2 {
+        font-size: 2rem;
+    }
+    .flame-page {
+        font-size: 2.5rem;
+    }
+    .heart-float {
+        font-size: 1.2rem;
+    }
+}
