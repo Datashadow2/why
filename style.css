@@ -68,7 +68,7 @@ body {
     z-index: 2;
 }
 
-/* DEPRESSION ANIMATION - FALLING TEARS */
+/* TEARS ANIMATION */
 #page1 .tears-container {
     position: absolute;
     inset: 0;
@@ -80,22 +80,21 @@ body {
 .tear-drop {
     position: absolute;
     width: 3px;
-    height: 20px;
-    background: linear-gradient(180deg, rgba(179, 74, 110, 0.6), rgba(179, 74, 110, 0));
+    height: 25px;
+    background: linear-gradient(180deg, rgba(179, 74, 110, 0.8), rgba(179, 74, 110, 0));
     border-radius: 50%;
     animation: tearFall var(--duration, 4s) infinite var(--transition-heartbreak);
     opacity: 0;
-    filter: blur(1px);
 }
 
 .tear-drop::after {
     content: '';
     position: absolute;
-    bottom: -8px;
-    left: -3px;
-    width: 9px;
-    height: 9px;
-    background: radial-gradient(circle, rgba(179, 74, 110, 0.4), transparent);
+    bottom: -10px;
+    left: -4px;
+    width: 11px;
+    height: 11px;
+    background: radial-gradient(circle, rgba(179, 74, 110, 0.5), transparent);
     border-radius: 50%;
     animation: tearSplash 1s infinite;
 }
@@ -106,27 +105,27 @@ body {
         opacity: 0;
     }
     10% {
-        opacity: 0.8;
+        opacity: 0.9;
     }
     50% {
-        transform: translateY(40vh) translateX(15px) scale(1.2);
-        opacity: 0.9;
+        transform: translateY(40vh) translateX(20px) scale(1.3);
+        opacity: 1;
     }
     90% {
         opacity: 0.6;
     }
     100% {
-        transform: translateY(100vh) translateX(-10px) scale(0.8);
+        transform: translateY(100vh) translateX(-15px) scale(0.7);
         opacity: 0;
     }
 }
 
 @keyframes tearSplash {
     0%, 100% { transform: scale(0.8); opacity: 0.3; }
-    50% { transform: scale(1.5); opacity: 0.7; }
+    50% { transform: scale(1.8); opacity: 0.8; }
 }
 
-/* Heartbreak pulse overlay */
+/* Broken Heart Pulse Background */
 #page1::before {
     content: '💔';
     position: absolute;
@@ -254,6 +253,12 @@ body {
     transform: scale(0.95);
 }
 
+#page1 .play-btn.playing {
+    background: var(--primary);
+    animation: none;
+    box-shadow: 0 0 60px rgba(179, 74, 110, 0.5);
+}
+
 #page1 .small-note {
     position: absolute;
     bottom: 2rem;
@@ -271,7 +276,7 @@ body {
 }
 
 /* ============================================
-   PAGE 2: PINK HEAVEN (Good Times)
+   PAGE 2: PINK / GOOD TIMES
    ============================================ */
 #page2 {
     background: #fce4ec;
@@ -284,24 +289,109 @@ body {
     color: var(--text-dark);
 }
 
-/* BITTERSWEET MEMORY ANIMATIONS */
-#page2 .memory-fade {
+/* FLYING HEARTS WITH RANDOM MOTIONS */
+#page2 .flying-hearts {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
-    background: 
-        radial-gradient(circle at 30% 40%, rgba(179, 74, 110, 0.05) 0%, transparent 30%),
-        radial-gradient(circle at 70% 60%, rgba(179, 74, 110, 0.03) 0%, transparent 30%);
-    animation: memoryPulse 5s ease-in-out infinite;
+    z-index: 1;
+    overflow: hidden;
 }
 
-@keyframes memoryPulse {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.1); }
+.flying-heart {
+    position: absolute;
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    opacity: 0;
+    animation: flyHeart var(--duration, 8s) infinite var(--transition-smooth);
+    filter: drop-shadow(0 0 20px rgba(255, 77, 109, 0.3));
+    will-change: transform;
 }
 
-#page2 .fading-hearts {
+@keyframes flyHeart {
+    0% {
+        transform: translate(0, 100vh) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translate(var(--tx1, 50px), 80vh) scale(0.5) rotate(20deg);
+    }
+    30% {
+        transform: translate(var(--tx2, -80px), 55vh) scale(1.2) rotate(-30deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(var(--tx3, 100px), 35vh) scale(0.8) rotate(45deg);
+        opacity: 0.9;
+    }
+    70% {
+        transform: translate(var(--tx4, -60px), 15vh) scale(1.5) rotate(-20deg);
+        opacity: 1;
+    }
+    90% {
+        transform: translate(var(--tx5, 40px), 5vh) scale(0.6) rotate(60deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(var(--tx6, -100px), -20vh) scale(0) rotate(90deg);
+        opacity: 0;
+    }
+}
+
+/* FIREWORKS */
+#page2 .fireworks-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.firework {
+    position: absolute;
+    opacity: 0;
+    animation: fireworkBurst var(--duration, 3s) infinite;
+}
+
+.firework-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    animation: particleFly var(--duration, 1.5s) infinite;
+}
+
+@keyframes fireworkBurst {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    80% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+@keyframes particleFly {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--px, 100px), var(--py, -100px)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Existing hearts page (keep for backward compatibility) */
+.hearts-page {
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -309,39 +399,56 @@ body {
     overflow: hidden;
 }
 
-.fading-heart {
+.heart-float {
     position: absolute;
-    font-size: clamp(2rem, 4vw, 4rem);
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
     opacity: 0;
-    animation: heartFade var(--duration, 6s) infinite var(--transition-heartbreak);
-    filter: blur(1px);
+    user-select: none;
+    animation: heartMaster 12s infinite var(--transition-smooth);
+    filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.2));
 }
 
-@keyframes heartFade {
+.heart-float:nth-child(odd) {
+    animation-duration: 14s;
+    animation-delay: -2s;
+}
+
+.heart-float:nth-child(3n) {
+    animation-duration: 18s;
+    animation-delay: -5s;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.heart-float:nth-child(5n+2) {
+    animation-duration: 16s;
+    animation-delay: -8s;
+}
+
+@keyframes heartMaster {
     0% {
-        transform: translateY(100vh) scale(0.3) rotate(0deg);
+        transform: translateY(100vh) scale(0.3) rotate(0deg) translateX(0px);
         opacity: 0;
-        filter: blur(3px);
+        filter: blur(2px);
     }
-    20% {
-        opacity: 0.3;
-        transform: translateY(60vh) scale(0.8) rotate(20deg);
-        filter: blur(1px);
+    15% {
+        opacity: 0.9;
+        transform: translateY(75vh) scale(0.8) rotate(45deg) translateX(20px);
+        filter: blur(0px);
     }
     50% {
-        opacity: 0.6;
-        transform: translateY(30vh) scale(1.2) rotate(-10deg);
+        transform: translateY(40vh) scale(1.2) rotate(180deg) translateX(-30px);
+        opacity: 1;
         filter: blur(0px);
     }
     80% {
-        opacity: 0.2;
-        transform: translateY(10vh) scale(0.7) rotate(30deg);
-        filter: blur(2px);
+        transform: translateY(10vh) scale(0.9) rotate(270deg) translateX(15px);
+        opacity: 0.6;
+        filter: blur(1px);
     }
     100% {
-        transform: translateY(-20vh) scale(0.1) rotate(60deg);
+        transform: translateY(-20vh) scale(0.4) rotate(360deg) translateX(-20px);
         opacity: 0;
-        filter: blur(5px);
+        filter: blur(4px);
     }
 }
 
@@ -383,10 +490,10 @@ body {
     left: -1.2em;
     top: 0.1em;
     color: var(--primary);
-    animation: heartBreak 2s ease-in-out infinite;
+    animation: heartBeatPink 2s ease-in-out infinite;
 }
 
-@keyframes heartBreak {
+@keyframes heartBeatPink {
     0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
     50% { transform: scale(1.3) rotate(-10deg); opacity: 0.4; }
 }
@@ -469,73 +576,12 @@ body {
     opacity: 0.5;
     letter-spacing: 3px;
     animation: indicatorFade 3s ease-in-out infinite;
+    z-index: 3;
 }
 
 @keyframes indicatorFade {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 0.7; }
-}
-
-/* ---- HEART ANIMATIONS (Page 2) ---- */
-.hearts-page {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.heart-float {
-    position: absolute;
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
-    opacity: 0;
-    user-select: none;
-    animation: heartMaster 12s infinite var(--transition-smooth);
-    filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.2));
-}
-
-.heart-float:nth-child(odd) {
-    animation-duration: 14s;
-    animation-delay: -2s;
-}
-
-.heart-float:nth-child(3n) {
-    animation-duration: 18s;
-    animation-delay: -5s;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-}
-
-.heart-float:nth-child(5n+2) {
-    animation-duration: 16s;
-    animation-delay: -8s;
-}
-
-@keyframes heartMaster {
-    0% {
-        transform: translateY(100vh) scale(0.3) rotate(0deg) translateX(0px);
-        opacity: 0;
-        filter: blur(2px);
-    }
-    15% {
-        opacity: 0.9;
-        transform: translateY(75vh) scale(0.8) rotate(45deg) translateX(20px);
-        filter: blur(0px);
-    }
-    50% {
-        transform: translateY(40vh) scale(1.2) rotate(180deg) translateX(-30px);
-        opacity: 1;
-        filter: blur(0px);
-    }
-    80% {
-        transform: translateY(10vh) scale(0.9) rotate(270deg) translateX(15px);
-        opacity: 0.6;
-        filter: blur(1px);
-    }
-    100% {
-        transform: translateY(-20vh) scale(0.4) rotate(360deg) translateX(-20px);
-        opacity: 0;
-        filter: blur(4px);
-    }
 }
 
 /* ============================================
@@ -547,7 +593,7 @@ body {
     border-top: 3px solid rgba(77, 30, 48, 0.5);
 }
 
-/* DARK DEPRESSION OVERLAY */
+/* DEPRESSION OVERLAY */
 #page3 .depression-overlay {
     position: absolute;
     inset: 0;
@@ -564,7 +610,7 @@ body {
     50% { opacity: 0.9; transform: scale(1.05); }
 }
 
-/* CRACKED HEART ANIMATION */
+/* CRACKED HEART */
 #page3 .cracked-heart {
     position: absolute;
     font-size: 15rem;
@@ -580,7 +626,7 @@ body {
     100% { transform: rotate(360deg) scale(1); opacity: 0.04; }
 }
 
-/* FALLING ASHES */
+/* ASHES FALLING */
 #page3 .ashes-container {
     position: absolute;
     inset: 0;
@@ -596,7 +642,6 @@ body {
     background: radial-gradient(circle, rgba(120, 80, 90, 0.4), transparent);
     border-radius: 50%;
     animation: ashFall var(--duration, 5s) infinite var(--transition-heartbreak);
-    filter: blur(1px);
 }
 
 @keyframes ashFall {
@@ -622,159 +667,7 @@ body {
     }
 }
 
-#page3 .content {
-    max-width: 800px;
-    text-align: center;
-    z-index: 3;
-    position: relative;
-}
-
-#page3 h2 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 900;
-    font-family: var(--font-serif);
-    background: linear-gradient(135deg, #8a4a5a 0%, #3d1a28 60%, #5a2a3a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 40px rgba(180, 50, 80, 0.15));
-    margin-bottom: 1.5rem;
-    animation: hellTitle 2.5s ease-in-out infinite alternate;
-    position: relative;
-}
-
-@keyframes hellTitle {
-    0% {
-        transform: scale(1) rotate(-0.5deg) translateY(0);
-        filter: drop-shadow(0 0 40px rgba(180, 50, 80, 0.1));
-    }
-    100% {
-        transform: scale(1.04) rotate(0.5deg) translateY(-5px);
-        filter: drop-shadow(0 0 80px rgba(180, 50, 80, 0.25));
-    }
-}
-
-#page3 h2::after {
-    content: '💔';
-    position: absolute;
-    font-size: 0.4em;
-    right: -0.6em;
-    top: -0.2em;
-    -webkit-text-fill-color: initial;
-    animation: heartShatter 3s ease-in-out infinite;
-}
-
-@keyframes heartShatter {
-    0%, 100% { 
-        transform: scale(1) rotate(0deg);
-        opacity: 0.3;
-        filter: blur(0px);
-    }
-    25% { transform: scale(1.3) rotate(-15deg); opacity: 0.8; }
-    75% { transform: scale(0.7) rotate(15deg); opacity: 0.5; filter: blur(1px); }
-}
-
-#page3 .story-text {
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
-    line-height: 2.1;
-    font-weight: 300;
-    color: #7a6a72;
-    font-family: var(--font-serif);
-    animation: painfulReveal 2s ease-out;
-}
-
-@keyframes painfulReveal {
-    0% { 
-        opacity: 0; 
-        transform: translateY(30px) scale(0.95);
-        filter: blur(2px);
-    }
-    100% { 
-        opacity: 1; 
-        transform: translateY(0) scale(1);
-        filter: blur(0px);
-    }
-}
-
-#page3 .story-text .broken {
-    color: #9a5a6a;
-    font-weight: 700;
-    text-shadow: 0 0 30px rgba(180, 50, 80, 0.15);
-    position: relative;
-    display: inline-block;
-    animation: brokenShake 2s ease-in-out infinite;
-}
-
-@keyframes brokenShake {
-    0%, 100% { transform: translateX(0) rotate(0deg); }
-    25% { transform: translateX(-3px) rotate(-2deg); }
-    75% { transform: translateX(3px) rotate(2deg); }
-}
-
-#page3 .story-text .broken::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -5%;
-    width: 110%;
-    height: 2px;
-    background: #7a4a5a;
-    transform: rotate(-5deg);
-    animation: slashPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes slashPulse {
-    0%, 100% { opacity: 0.2; width: 110%; }
-    50% { opacity: 0.6; width: 120%; }
-}
-
-#page3 .story-text .burn {
-    color: #8a4a5a;
-    font-weight: 700;
-    animation: burnGlowDark 1.2s ease-in-out infinite alternate;
-}
-
-@keyframes burnGlowDark {
-    0% { 
-        text-shadow: 0 0 15px rgba(180, 50, 80, 0.15);
-        transform: scale(1);
-    }
-    100% { 
-        text-shadow: 0 0 35px rgba(180, 50, 80, 0.35), 0 0 70px rgba(100, 30, 50, 0.15);
-        transform: scale(1.05);
-    }
-}
-
-#page3 .story-text .final-why {
-    font-weight: 700;
-    color: #8a5a6a;
-    animation: whyGlow 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes whyGlow {
-    0% { 
-        text-shadow: 0 0 20px rgba(180, 50, 80, 0.05); 
-        opacity: 0.6;
-        transform: translateY(0);
-    }
-    100% { 
-        text-shadow: 0 0 50px rgba(180, 50, 80, 0.2); 
-        opacity: 1;
-        transform: translateY(-3px);
-    }
-}
-
-#page3 .page-indicator {
-    position: absolute;
-    bottom: 2rem;
-    color: #4a3a42;
-    font-size: 0.85rem;
-    opacity: 0.35;
-    letter-spacing: 3px;
-    animation: indicatorFade 3s ease-in-out infinite 1s;
-}
-
-/* ---- FLAME ANIMATIONS (Page 3) ---- */
+/* Existing hell particles (keep) */
 .hell-particles-page {
     position: absolute;
     inset: 0;
@@ -891,8 +784,160 @@ body {
     100% { opacity: 0.15; transform: scale(2); }
 }
 
+#page3 .content {
+    max-width: 800px;
+    text-align: center;
+    z-index: 3;
+    position: relative;
+}
+
+#page3 h2 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    font-family: var(--font-serif);
+    background: linear-gradient(135deg, #8a4a5a 0%, #3d1a28 60%, #5a2a3a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(180, 50, 80, 0.15));
+    margin-bottom: 1.5rem;
+    animation: hellTitle 2.5s ease-in-out infinite alternate;
+    position: relative;
+}
+
+@keyframes hellTitle {
+    0% {
+        transform: scale(1) rotate(-0.5deg) translateY(0);
+        filter: drop-shadow(0 0 40px rgba(180, 50, 80, 0.1));
+    }
+    100% {
+        transform: scale(1.04) rotate(0.5deg) translateY(-5px);
+        filter: drop-shadow(0 0 80px rgba(180, 50, 80, 0.25));
+    }
+}
+
+#page3 h2::after {
+    content: '💔';
+    position: absolute;
+    font-size: 0.4em;
+    right: -0.6em;
+    top: -0.2em;
+    -webkit-text-fill-color: initial;
+    animation: heartShatter 3s ease-in-out infinite;
+}
+
+@keyframes heartShatter {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% { transform: scale(1.3) rotate(-15deg); opacity: 0.8; }
+    75% { transform: scale(0.7) rotate(15deg); opacity: 0.5; }
+}
+
+#page3 .story-text {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 2.1;
+    font-weight: 300;
+    color: #7a6a72;
+    font-family: var(--font-serif);
+    animation: painfulReveal 2s ease-out;
+}
+
+@keyframes painfulReveal {
+    0% { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95);
+        filter: blur(2px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+#page3 .story-text .broken {
+    color: #9a5a6a;
+    font-weight: 700;
+    text-shadow: 0 0 30px rgba(180, 50, 80, 0.15);
+    position: relative;
+    display: inline-block;
+    animation: brokenShake 2s ease-in-out infinite;
+}
+
+@keyframes brokenShake {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-3px) rotate(-2deg); }
+    75% { transform: translateX(3px) rotate(2deg); }
+}
+
+#page3 .story-text .broken::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5%;
+    width: 110%;
+    height: 2px;
+    background: #7a4a5a;
+    transform: rotate(-5deg);
+    animation: slashPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes slashPulse {
+    0%, 100% { opacity: 0.2; width: 110%; }
+    50% { opacity: 0.6; width: 120%; }
+}
+
+#page3 .story-text .burn {
+    color: #8a4a5a;
+    font-weight: 700;
+    animation: burnGlowDark 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes burnGlowDark {
+    0% { 
+        text-shadow: 0 0 15px rgba(180, 50, 80, 0.15);
+        transform: scale(1);
+    }
+    100% { 
+        text-shadow: 0 0 35px rgba(180, 50, 80, 0.35), 0 0 70px rgba(100, 30, 50, 0.15);
+        transform: scale(1.05);
+    }
+}
+
+#page3 .story-text .final-why {
+    font-weight: 700;
+    color: #8a5a6a;
+    animation: whyGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes whyGlow {
+    0% { 
+        text-shadow: 0 0 20px rgba(180, 50, 80, 0.05); 
+        opacity: 0.6;
+        transform: translateY(0);
+    }
+    100% { 
+        text-shadow: 0 0 50px rgba(180, 50, 80, 0.2); 
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+}
+
+#page3 .page-indicator {
+    position: absolute;
+    bottom: 2rem;
+    color: #4a3a42;
+    font-size: 0.85rem;
+    opacity: 0.35;
+    letter-spacing: 3px;
+    animation: indicatorFade 3s ease-in-out infinite 1s;
+    z-index: 3;
+}
+
 /* ============================================
-   CONFESSION BOX (Page 3)
+   CONFESSION BOX
    ============================================ */
 .confession-box {
     margin-top: 2rem;
@@ -932,12 +977,6 @@ body {
     resize: vertical;
     transition: all 0.4s var(--transition-smooth);
     line-height: 1.6;
-    animation: textareaPulse 4s ease-in-out infinite;
-}
-
-@keyframes textareaPulse {
-    0%, 100% { border-color: rgba(61, 26, 40, 0.4); }
-    50% { border-color: rgba(61, 26, 40, 0.7); }
 }
 
 .confession-box textarea:focus {
@@ -973,19 +1012,6 @@ body {
     letter-spacing: 1px;
     position: relative;
     overflow: hidden;
-    animation: btnDepressed 3s ease-in-out infinite;
-}
-
-@keyframes btnDepressed {
-    0%, 100% { 
-        transform: scale(1);
-        border-color: rgba(77, 30, 48, 0.6);
-    }
-    50% { 
-        transform: scale(0.97);
-        border-color: rgba(77, 30, 48, 0.3);
-        box-shadow: 0 0 20px rgba(40, 15, 25, 0.2);
-    }
 }
 
 .confession-box .send-btn::before {
@@ -1009,7 +1035,6 @@ body {
     color: #a08a92;
     box-shadow: 0 0 50px rgba(60, 20, 30, 0.3);
     transform: scale(1.04);
-    animation: none;
 }
 
 .confession-box .send-btn:active {
@@ -1045,6 +1070,16 @@ body {
         font-size: clamp(1.8rem, 6vw, 2.8rem);
     }
 
+    #page2 h2::before {
+        display: none;
+    }
+
+    #page1 .big-text::after {
+        font-size: 0.4em;
+        right: -0.5em;
+        top: -0.1em;
+    }
+
     #page2 .story-text {
         font-size: 0.95rem;
     }
@@ -1064,16 +1099,6 @@ body {
 
     .flame-page {
         font-size: clamp(2.5rem, 8vw, 4rem);
-    }
-
-    #page2 h2::before {
-        display: none;
-    }
-
-    #page1 .big-text::after {
-        font-size: 0.4em;
-        right: -0.5em;
-        top: -0.1em;
     }
 
     #page3 .cracked-heart {
@@ -1144,7 +1169,8 @@ body {
         font-size: clamp(2rem, 10vw, 3rem);
     }
 
-    .heart-float {
+    .heart-float,
+    .flying-heart {
         font-size: clamp(0.8rem, 4vw, 1.2rem);
     }
 
