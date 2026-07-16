@@ -5,7 +5,6 @@ function createTears() {
     const page1 = document.getElementById('page1');
     if (!page1) return;
     
-    // Remove existing tears container if any
     const existingContainer = document.getElementById('tearsContainer');
     if (existingContainer) existingContainer.remove();
     
@@ -37,7 +36,6 @@ function createFlyingHearts() {
     const page2 = document.getElementById('page2');
     if (!page2) return;
     
-    // Remove existing flying hearts container
     const existingContainer = document.getElementById('flyingHearts');
     if (existingContainer) existingContainer.remove();
     
@@ -58,7 +56,6 @@ function createFlyingHearts() {
         const duration = 6 + Math.random() * 6;
         const delay = Math.random() * 8;
         
-        // Random path variations for each heart
         const tx1 = (Math.random() - 0.5) * 400;
         const tx2 = (Math.random() - 0.5) * 400;
         const tx3 = (Math.random() - 0.5) * 400;
@@ -88,7 +85,6 @@ function createFireworks() {
     const page2 = document.getElementById('page2');
     if (!page2) return;
     
-    // Remove existing fireworks container
     const existingContainer = document.getElementById('fireworksContainer');
     if (existingContainer) existingContainer.remove();
     
@@ -116,7 +112,6 @@ function createFireworks() {
         firework.style.setProperty('--duration', duration + 's');
         firework.style.animationDelay = delay + 's';
         
-        // Create particles for each firework
         for (let j = 0; j < particleCount; j++) {
             const particle = document.createElement('div');
             particle.className = 'firework-particle';
@@ -146,7 +141,6 @@ function createAshes() {
     const page3 = document.getElementById('page3');
     if (!page3) return;
     
-    // Remove existing ashes container
     const existingContainer = document.getElementById('ashesContainer');
     if (existingContainer) existingContainer.remove();
     
@@ -214,7 +208,6 @@ function createFlames() {
     const particlesPage = document.getElementById('hellParticlesPage');
     if (!particlesPage) return;
     
-    // Add embers
     const emberCount = window.innerWidth < 768 ? 8 : 16;
     const colors = ['#ff4444', '#ff6644', '#ff5533', '#ff7744', '#ff3333', '#ff8855'];
     
@@ -243,23 +236,49 @@ function createFlames() {
 }
 
 // ============================================
-// AUDIO PLAYER CONTROLS
+// AUDIO PLAYER - FIXED FOR GITHUB PAGES
 // ============================================
 function setupAudio() {
     const playBtn = document.getElementById('playBtn');
-    if (!playBtn) return;
+    if (!playBtn) {
+        console.error('Play button not found!');
+        return;
+    }
     
-    // Create audio element if it doesn't exist
+    // Try to get existing audio element
     let audio = document.getElementById('bgMusic');
+    
+    // If no audio element exists, create one with the correct URL
     if (!audio) {
         audio = document.createElement('audio');
         audio.id = 'bgMusic';
         audio.loop = true;
+        audio.preload = 'auto';
         audio.innerHTML = `
-            <source src="https://raw.githubusercontent.com/Datashadow2/why/main/audio.Seafret - Oceans.mp3" type="audio/mpeg">
+            <!-- FIXED: No spaces in filename, using proper encoding -->
+            <source src="https://raw.githubusercontent.com/Datashadow2/why/main/audio.Seafret%20-%20Oceans.mp3" type="audio/mpeg">
+            <!-- Backup: If the above doesn't work, try without special chars -->
+            <!-- <source src="https://raw.githubusercontent.com/Datashadow2/why/main/audio.mp3" type="audio/mpeg"> -->
         `;
         document.body.appendChild(audio);
+        console.log('Created new audio element with fixed URL');
+    } else {
+        console.log('Audio element already exists');
+        // Update the source URL to use encoded spaces
+        const source = audio.querySelector('source');
+        if (source) {
+            const currentSrc = source.src;
+            if (currentSrc && currentSrc.includes(' ')) {
+                // Replace spaces with %20
+                const fixedSrc = currentSrc.replace(/ /g, '%20');
+                source.src = fixedSrc;
+                audio.load();
+                console.log('Fixed audio URL with encoding:', fixedSrc);
+            }
+        }
     }
+    
+    console.log('Audio source URL:', audio.querySelector('source')?.src || 'No source found');
     
     let isPlaying = false;
     
@@ -267,46 +286,82 @@ function setupAudio() {
         e.stopPropagation();
         
         if (!isPlaying) {
-            audio.play().then(() => {
-                isPlaying = true;
-                playBtn.textContent = '⏸ pause';
-                playBtn.classList.add('playing');
-            }).catch(err => {
-                console.log('Audio play failed:', err);
-                // Fallback: toggle visual state anyway
-                isPlaying = !isPlaying;
-                playBtn.textContent = isPlaying ? '⏸ pause' : '▶ play';
-                if (isPlaying) {
+            audio.play()
+                .then(() => {
+                    isPlaying = true;
+                    playBtn.textContent = '⏸ pause';
                     playBtn.classList.add('playing');
-                } else {
+                    console.log('✅ Audio is playing!');
+                })
+                .catch(err => {
+                    console.error('❌ Audio play failed:', err);
+                    
+                    // Show helpful error message
+                    let errorMsg = 'Unable to play audio. ';
+                    if (err.name === 'NotSupportedError') {
+                        errorMsg += 'The audio format is not supported. Please use MP3.';
+                    } else if (err.name === 'NotFoundError') {
+                        errorMsg += 'Audio file not found. Please check the file path.';
+                    } else {
+                        errorMsg += 'Please click play again.';
+                    }
+                    
+                    // Show error in console and as alert
+                    console.error(errorMsg);
+                    
+                    // Reset button state
+                    playBtn.textContent = '▶ play';
                     playBtn.classList.remove('playing');
-                }
-            });
+                    
+                    // Try alternative URL if first fails
+                    const source = audio.querySelector('source');
+                    if (source && source.src.includes('Seafret')) {
+                        console.log('Trying alternative audio URL...');
+                        source.src = 'https://raw.githubusercontent.com/Datashadow2/why/main/audio.mp3';
+                        audio.load();
+                        setTimeout(() => {
+                            audio.play().then(() => {
+                                isPlaying = true;
+                                playBtn.textContent = '⏸ pause';
+                                playBtn.classList.add('playing');
+                                console.log('✅ Alternative audio is playing!');
+                            }).catch(e => console.error('Alternative also failed:', e));
+                        }, 500);
+                    }
+                });
         } else {
             audio.pause();
             isPlaying = false;
             playBtn.textContent = '▶ play';
             playBtn.classList.remove('playing');
+            console.log('Audio paused');
         }
     });
     
-    // Auto-play attempt (many browsers block this)
-    document.addEventListener('click', function tryAutoPlay() {
-        if (!isPlaying && !playBtn.classList.contains('playing')) {
-            audio.play().then(() => {
-                isPlaying = true;
-                playBtn.textContent = '⏸ pause';
-                playBtn.classList.add('playing');
-            }).catch(() => {
-                // Silently fail - user needs to click play
-            });
+    // Handle audio ending - restart if playing
+    audio.addEventListener('ended', function() {
+        if (isPlaying) {
+            audio.currentTime = 0;
+            audio.play().catch(err => console.log('Restart failed:', err));
         }
-        document.removeEventListener('click', tryAutoPlay);
-    }, { once: true });
+    });
+    
+    // Log audio errors
+    audio.addEventListener('error', function(e) {
+        console.error('Audio error:', e);
+        const error = audio.error;
+        if (error) {
+            console.error('Error code:', error.code);
+            console.error('Error message:', error.message);
+        }
+    });
+    
+    // Load the audio
+    audio.load();
 }
 
 // ============================================
-// CONFESSION BOX FUNCTIONALITY
+// CONFESSION BOX
 // ============================================
 function setupConfession() {
     const textarea = document.getElementById('confessionInput');
@@ -323,7 +378,6 @@ function setupConfession() {
             return;
         }
         
-        // Simulate sending
         statusMsg.textContent = '⏳ Sending your confession...';
         statusMsg.style.color = '#6a5a62';
         
@@ -332,14 +386,12 @@ function setupConfession() {
             statusMsg.style.color = '#4a3a42';
             textarea.value = '';
             
-            // Reset after 4 seconds
             setTimeout(() => {
                 statusMsg.textContent = '';
             }, 4000);
         }, 1500);
     });
     
-    // Enter key support
     textarea.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -349,9 +401,10 @@ function setupConfession() {
 }
 
 // ============================================
-// INITIALIZE EVERYTHING
+// INITIALIZE
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Initializing page...');
     createTears();
     createFlyingHearts();
     createFireworks();
@@ -361,15 +414,5 @@ document.addEventListener('DOMContentLoaded', function() {
     createFlames();
     setupAudio();
     setupConfession();
-    
-    // Handle resize for responsive animations
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            // Regenerate hearts and fireworks on resize
-            createFlyingHearts();
-            createFireworks();
-        }, 500);
-    });
+    console.log('✅ All initialized!');
 });
